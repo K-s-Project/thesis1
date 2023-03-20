@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1068307072143",
+    "project_id": "thesis1-8ae17",
+    "storage_bucket": "thesis1-8ae17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068307072143:android:7325d75b21d39c9377dcfa",
+        "android_client_info": {
+          "package_name": "com.urel.thesis1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068307072143-kcr2e20998ejc154c1iqjtnr4pq6d3pb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhD5d9m4lGDww0RQqjg6LVAHsaxrull6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068307072143-kcr2e20998ejc154c1iqjtnr4pq6d3pb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

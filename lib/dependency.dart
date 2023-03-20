@@ -1,0 +1,74 @@
+import 'package:get_it/get_it.dart';
+import 'package:thesis1/data/datasource/remote_ds.dart';
+import 'package:thesis1/data/datasource/remote_ds_impl.dart';
+import 'package:thesis1/data/repository/repository_impl.dart';
+import 'package:thesis1/domain/repository/repository.dart';
+import 'package:thesis1/domain/usecase/auth/is_admin.dart';
+import 'package:thesis1/domain/usecase/auth/login.dart';
+import 'package:thesis1/domain/usecase/auth/logout.dart';
+import 'package:thesis1/domain/usecase/auth/register.dart';
+import 'package:thesis1/domain/usecase/auth/usercheck.dart';
+import 'package:thesis1/domain/usecase/firestore/add_lesson.dart';
+import 'package:thesis1/domain/usecase/firestore/add_student_record.dart';
+import 'package:thesis1/domain/usecase/firestore/create_note.dart';
+import 'package:thesis1/domain/usecase/firestore/create_user.dart';
+import 'package:thesis1/domain/usecase/firestore/delete_lesson.dart';
+import 'package:thesis1/domain/usecase/firestore/fetch_notes.dart';
+import 'package:thesis1/domain/usecase/firestore/fetch_user_by_id.dart';
+import 'package:thesis1/domain/usecase/firestore/stream_lessons.dart';
+import 'package:thesis1/domain/usecase/firestore/update_acts.dart';
+import 'package:thesis1/domain/usecase/firestore/update_note.dart';
+import 'package:thesis1/domain/usecase/firestore/update_profile.dart';
+import 'package:thesis1/domain/usecase/hive/add_initial_record.dart';
+import 'package:thesis1/domain/usecase/hive/get_record_loc.dart';
+import 'package:thesis1/domain/usecase/storage/get_dl_url.dart';
+import 'package:thesis1/domain/usecase/storage/upload_to_storage.dart';
+import 'package:thesis1/presentation/state/auths/login/login_cubit.dart';
+import 'package:thesis1/presentation/state/auths/register/register_cubit.dart';
+import 'package:thesis1/presentation/state/lesson/lesson_cubit.dart';
+import 'package:thesis1/presentation/state/note/note_cubit.dart';
+import 'package:thesis1/presentation/state/persistence/persistence_cubit.dart';
+import 'package:thesis1/presentation/state/record/record_cubit.dart';
+import 'package:thesis1/presentation/state/role/role_cubit.dart';
+import 'package:thesis1/presentation/state/storage/storage_cubit.dart';
+import 'package:thesis1/presentation/state/user/user_cubit.dart';
+import 'package:thesis1/presentation/state/usercheck/user_check_cubit.dart';
+
+final sl = GetIt.instance;
+
+Future init() async {
+  sl.registerFactory(() => UserCheckCubit(sl()));
+  sl.registerFactory(() => UserCubit(sl(), sl(), sl(), sl()));
+  sl.registerFactory(() => StorageCubit(sl(), sl()));
+  sl.registerFactory(() => RoleCubit(sl()));
+  sl.registerFactory(() => LoginCubit(sl()));
+  sl.registerFactory(() => RegisterCubit(sl()));
+  sl.registerFactory(() => LessonCubit(sl(), sl(), sl()));
+  sl.registerFactory(() => RecordCubit(sl(), sl()));
+  sl.registerFactory(() => PersistenceCubit(sl(), sl()));
+  sl.registerFactory(() => NoteCubit(sl(), sl(), sl()));
+
+  sl.registerLazySingleton(() => Login(repo: sl()));
+  sl.registerLazySingleton(() => Register(repo: sl()));
+  sl.registerLazySingleton(() => UserCheck(repo: sl()));
+  sl.registerLazySingleton(() => CreateUser(repo: sl()));
+  sl.registerLazySingleton(() => FetchUserById(repo: sl()));
+  sl.registerLazySingleton(() => UpdateProfile(repo: sl()));
+  sl.registerLazySingleton(() => UploadToStorage(repo: sl()));
+  sl.registerLazySingleton(() => GetDlUrl(repo: sl()));
+  sl.registerLazySingleton(() => Logout(repo: sl()));
+  sl.registerLazySingleton(() => IsAdmin(repo: sl()));
+  sl.registerLazySingleton(() => AddLesson(repo: sl()));
+  sl.registerLazySingleton(() => StreamLessons(repo: sl()));
+  sl.registerLazySingleton(() => AddStudentRecord(repo: sl()));
+  sl.registerLazySingleton(() => AddInitialRecord(repo: sl()));
+  sl.registerLazySingleton(() => GetRecordLoc(repo: sl()));
+  sl.registerLazySingleton(() => UpdateActs(repo: sl()));
+  sl.registerLazySingleton(() => FetchNotes(repo: sl()));
+  sl.registerLazySingleton(() => CreateNote(repo: sl()));
+  sl.registerLazySingleton(() => UpdateNote(repo: sl()));
+  sl.registerLazySingleton(() => DeleteLesson(repo: sl()));
+
+  sl.registerLazySingleton<Repository>(() => RepositoryImpl(remote: sl()));
+  sl.registerLazySingleton<RemoteDatasource>(() => RemoteDatasourceImpl());
+}
